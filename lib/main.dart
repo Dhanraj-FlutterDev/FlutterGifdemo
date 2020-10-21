@@ -1,1 +1,77 @@
-import 'package:flutter/material.dart';import 'package:giphy_picker/giphy_picker.dart';void main() => runApp(MyApp());class MyApp extends StatelessWidget {  @override  Widget build(BuildContext context) {    return MaterialApp(      debugShowCheckedModeBanner: false,      home: Demo(),    );  }}class Demo extends StatefulWidget {  @override  _DemoState createState() => _DemoState();}class _DemoState extends State<Demo> {  GiphyGif _gif;  @override  Widget build(BuildContext context) {    return Scaffold(      appBar: AppBar(        title: Text(_gif?.title ?? 'Giphy Demo'),      ),      body: SafeArea(          child: Center(            child: _gif == null? Text('Pick A Gif',style: TextStyle(              fontSize: 30.0            ),) : GiphyImage.original(gif: _gif),          ),      ),      floatingActionButton: FloatingActionButton(          backgroundColor: Colors.blue,          child: Icon(Icons.search),          onPressed: ()async{            final gif = await GiphyPicker.pickGif(                context:context,                fullScreenDialog: false,                showPreviewPage: true,                apiKey: 'Your API Key!',                decorator: GiphyDecorator(                showAppBar: false,                  searchElevation: 4,                  giphyTheme: ThemeData.dark(),            ),            );            if(gif!=null){              setState(() {                _gif = gif;              });            }          },      ),    );  }}
+import 'package:flutter/material.dart';
+import 'package:giphy_picker/giphy_picker.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Demo(),
+    );
+  }
+}
+class Demo extends StatefulWidget {
+  @override
+  _DemoState createState() => _DemoState();
+}
+
+class _DemoState extends State<Demo> {
+  GiphyGif _gif;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_gif?.title ?? 'Giphy Demo'),
+      ),
+      body: SafeArea(
+          child: Center(
+            child: _gif == null? Text('Pick A Gif',style: TextStyle(
+              fontSize: 30.0
+            ),) : GiphyImage.original(gif: _gif),
+          ),
+      ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blue,
+          child: Icon(Icons.search),
+          onPressed: ()async{
+            final gif = await GiphyPicker.pickGif(
+                context:context,
+                fullScreenDialog: false,
+                showPreviewPage: true,
+                apiKey: 'Your API Key!',
+                decorator: GiphyDecorator(
+                showAppBar: false,
+                  searchElevation: 4,
+                  giphyTheme: ThemeData.dark(),
+            ),
+            );
+            if(gif!=null){
+              setState(() {
+                _gif = gif;
+              });
+            }
+          },
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
